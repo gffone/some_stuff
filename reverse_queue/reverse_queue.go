@@ -17,25 +17,29 @@ func NewLL() LinkedList {
 }
 
 func (l *LinkedList) Push(val int) {
+	
 	newNode := Node{
 		val: val,
 	}
+	
 	l.size++
 	l.tail.next = &newNode
 	l.tail = l.tail.next
 }
 
 func (l *LinkedList) Pop() int {
+	
 	if l.head == l.tail {
 		return -1
 	}
+
 	l.size--
 	l.head = l.head.next
 	return l.head.val
 }
 
 func (l *LinkedList) Reverse() {
-
+	
 	if l.size < 2 {
 		return
 	}
