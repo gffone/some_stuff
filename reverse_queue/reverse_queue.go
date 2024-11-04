@@ -60,6 +60,3 @@ func (l *LinkedList) Reverse() {
 		l.head.next, prev, l.head = prev, l.head, l.head.next
 	}
 }
-
-func main() {
-}
