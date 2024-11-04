@@ -26,15 +26,12 @@ func (l *LinkedList) Push(val int) {
 }
 
 func (l *LinkedList) Pop() int {
-
 	if l.head == l.tail {
 		return -1
 	}
-
 	l.size--
-	temp := l.head.next.val
 	l.head = l.head.next
-	return temp
+	return l.head.val
 }
 
 func (l *LinkedList) Reverse() {
