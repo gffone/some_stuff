@@ -1,6 +1,6 @@
 package main
 
-type LinkedList struct {
+type Queue struct {
 	head *Node
 	tail *Node
 	size int
@@ -11,52 +11,52 @@ type Node struct {
 	next *Node
 }
 
-func NewLL() LinkedList {
+func NewLL() Queue {
 	dummy := &Node{}
-	return LinkedList{dummy, dummy, 0}
+	return Queue{dummy, dummy, 0}
 }
 
-func (l *LinkedList) Push(val int) {
+func (q *Queue) Push(val int) {
 	
 	newNode := Node{
 		val: val,
 	}
 	
-	l.size++
-	l.tail.next = &newNode
-	l.tail = l.tail.next
+	q.size++
+	q.tail.next = &newNode
+	q.tail = q.tail.next
 }
 
-func (l *LinkedList) Pop() int {
+func (l *Queue) Pop() int {
 	
-	if l.head == l.tail {
+	if q.head == q.tail {
 		return -1
 	}
 
-	l.size--
-	l.head = l.head.next
-	return l.head.val
+	q.size--
+	q.head = q.head.next
+	return q.head.val
 }
 
-func (l *LinkedList) Reverse() {
+func (q *Queue) Reverse() {
 	
-	if l.size < 2 {
+	if q.size < 2 {
 		return
 	}
 
 	var prev *Node
 
-	l.tail = l.head.next
-	prev = l.tail
-	l.head = prev.next
+	q.tail = q.head.next
+	prev = q.tail
+	q.head = prev.next
 	prev.next = nil
 	for {
-		if l.head.next == nil {
+		if q.head.next == nil {
 			dummy := &Node{}
-			l.head.next, prev, l.head = prev, l.head, dummy
-			l.head.next = prev
+			q.head.next, prev, q.head = prev, q.head, dummy
+			q.head.next = prev
 			return
 		}
-		l.head.next, prev, l.head = prev, l.head, l.head.next
+		q.head.next, prev, q.head = prev, q.head, q.head.next
 	}
 }
