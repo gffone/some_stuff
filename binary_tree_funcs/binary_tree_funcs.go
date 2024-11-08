@@ -76,6 +76,7 @@ func bfs(root *TreeNode) {
 	queue := []*TreeNode{root}
 
 	for len(queue) > 0 {
+
 		node := queue[0]
 		queue = queue[1:]
 
@@ -88,6 +89,33 @@ func bfs(root *TreeNode) {
 			queue = append(queue, node.Right)
 		}
 	}
+}
+
+func isSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+
+	queue := []*TreeNode{root}
+
+	for len(queue) > 0 {
+		qLen := len(queue)
+		for i := 0; i < qLen; i++ {
+			if queue[i] == nil && queue[qLen-1] == nil {
+				continue
+			}
+			if queue[i] != nil || queue[qLen-1] != nil {
+				return false
+			}
+			if queue[i].Val != queue[qLen-1].Val {
+				return false
+			}
+			queue = append(queue, queue[i].Left)
+			queue = append(queue, queue[i].Right)
+		}
+		queue = queue[qLen:]
+	}
+	return true
 }
 
 // build tree from slice
