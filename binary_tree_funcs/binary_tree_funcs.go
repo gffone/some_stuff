@@ -38,6 +38,22 @@ func isBalanced(t *TreeNode) bool {
 	return isBalanced(t.Left) && isBalanced(t.Right)
 }
 
+func isSame(t1, t2 *TreeNode) bool {
+	if t1 == nil && t2 == nil {
+		return true
+	}
+
+	if t1 == nil || t2 == nil {
+		return false
+	}
+
+	if t1.Val != t2.Val {
+		return false
+	}
+
+	return isSame(t1.Left, t2.Left) && isSame(t1.Right, t2.Right)
+}
+
 func dftlnr(t *TreeNode) {
 	if t == nil {
 		return
