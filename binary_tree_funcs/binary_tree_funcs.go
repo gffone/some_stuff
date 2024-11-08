@@ -1,6 +1,9 @@
 package binary_tree_funcs
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type TreeNode struct {
 	Val   int
@@ -23,14 +26,24 @@ func height(t *TreeNode) int {
 	return rightHeight + 1
 }
 
-func isBalanced(root *TreeNode) bool {
-	if root == nil {
+func isBalanced(t *TreeNode) bool {
+	if t == nil {
 		return true
 	}
 
-	if math.Abs(float64(height(root.Left)-height(root.Right))) > 1 {
+	if math.Abs(float64(height(t.Left)-height(t.Right))) > 1 {
 		return false
 	}
 
-	return isBalanced(root.Left) && isBalanced(root.Right)
+	return isBalanced(t.Left) && isBalanced(t.Right)
+}
+
+func DFTLNR(t *TreeNode) {
+	if t == nil {
+		return
+	}
+
+	DFTLNR(t.Left)
+	fmt.Print(t.Val)
+	DFTLNR(t.Right)
 }

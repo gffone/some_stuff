@@ -34,8 +34,6 @@ func (q *Queue) Push(item int) {
 	q.c.Signal()
 }
 
-// Если очередь пуста, блокируется до момента,
-// пока в очереди не появится элемент.
 func (q *Queue) Pop() int {
 	q.c.L.Lock()
 	defer q.c.L.Unlock()
