@@ -11,6 +11,10 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+func newTreeNode(val int) *TreeNode {
+	return &TreeNode{Val: val, Left: nil, Right: nil}
+}
+
 func height(t *TreeNode) int {
 	if t == nil {
 		return 0
@@ -84,4 +88,18 @@ func bfs(root *TreeNode) {
 			queue = append(queue, node.Right)
 		}
 	}
+}
+
+// build tree from slice
+func buildTree(slice []int, i int) *TreeNode {
+	if i >= len(slice) {
+		return nil
+	}
+
+	node := newTreeNode(slice[i])
+
+	node.Left = buildTree(slice, 2*i+1)
+	node.Right = buildTree(slice, 2*i+2)
+
+	return node
 }
