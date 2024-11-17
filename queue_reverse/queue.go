@@ -17,18 +17,18 @@ func NewLL() Queue {
 }
 
 func (q *Queue) Push(val int) {
-	
+
 	newNode := Node{
 		val: val,
 	}
-	
+
 	q.size++
 	q.tail.next = &newNode
 	q.tail = q.tail.next
 }
 
-func (l *Queue) Pop() int {
-	
+func (q *Queue) Pop() int {
+
 	if q.head == q.tail {
 		return -1
 	}
@@ -39,7 +39,7 @@ func (l *Queue) Pop() int {
 }
 
 func (q *Queue) Reverse() {
-	
+
 	if q.size < 2 {
 		return
 	}

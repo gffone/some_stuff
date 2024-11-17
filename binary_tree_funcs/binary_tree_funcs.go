@@ -11,17 +11,17 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func newTreeNode(val int) *TreeNode {
+func NewTreeNode(val int) *TreeNode {
 	return &TreeNode{Val: val, Left: nil, Right: nil}
 }
 
-func height(t *TreeNode) int {
+func Height(t *TreeNode) int {
 	if t == nil {
 		return 0
 	}
 
-	leftHeight := height(t.Left)
-	rightHeight := height(t.Right)
+	leftHeight := Height(t.Left)
+	rightHeight := Height(t.Right)
 
 	if leftHeight > rightHeight {
 		return leftHeight + 1
@@ -30,19 +30,19 @@ func height(t *TreeNode) int {
 	return rightHeight + 1
 }
 
-func isBalanced(t *TreeNode) bool {
+func IsBalanced(t *TreeNode) bool {
 	if t == nil {
 		return true
 	}
 
-	if math.Abs(float64(height(t.Left)-height(t.Right))) > 1 {
+	if math.Abs(float64(Height(t.Left)-Height(t.Right))) > 1 {
 		return false
 	}
 
-	return isBalanced(t.Left) && isBalanced(t.Right)
+	return IsBalanced(t.Left) && IsBalanced(t.Right)
 }
 
-func isSame(t1, t2 *TreeNode) bool {
+func IsSame(t1, t2 *TreeNode) bool {
 	if t1 == nil && t2 == nil {
 		return true
 	}
@@ -55,20 +55,20 @@ func isSame(t1, t2 *TreeNode) bool {
 		return false
 	}
 
-	return isSame(t1.Left, t2.Left) && isSame(t1.Right, t2.Right)
+	return IsSame(t1.Left, t2.Left) && IsSame(t1.Right, t2.Right)
 }
 
-func dftlnr(t *TreeNode) {
+func DFTLNR(t *TreeNode) {
 	if t == nil {
 		return
 	}
 
-	dftlnr(t.Left)
+	DFTLNR(t.Left)
 	fmt.Print(t.Val)
-	dftlnr(t.Right)
+	DFTLNR(t.Right)
 }
 
-func bfs(root *TreeNode) {
+func BFS(root *TreeNode) {
 	if root == nil {
 		return
 	}
@@ -91,7 +91,7 @@ func bfs(root *TreeNode) {
 	}
 }
 
-func isSymmetric(root *TreeNode) bool {
+func IsSymmetric(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -119,15 +119,15 @@ func isSymmetric(root *TreeNode) bool {
 }
 
 // build tree from slice
-func buildTree(slice []int, i int) *TreeNode {
+func BuildTree(slice []int, i int) *TreeNode {
 	if i >= len(slice) {
 		return nil
 	}
 
-	node := newTreeNode(slice[i])
+	node := NewTreeNode(slice[i])
 
-	node.Left = buildTree(slice, 2*i+1)
-	node.Right = buildTree(slice, 2*i+2)
+	node.Left = BuildTree(slice, 2*i+1)
+	node.Right = BuildTree(slice, 2*i+2)
 
 	return node
 }
