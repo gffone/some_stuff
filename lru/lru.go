@@ -25,8 +25,8 @@ type cacheImpl[K comparable, V any] struct {
 	defaultValue V
 }
 
-func (c *cacheImpl[K, V])GetNodeFromElement(element *list.Element) *Node[K, V]{
-	switch v:=element.Value.(type){
+func (c *cacheImpl[K, V]) GetNodeFromElement(element *list.Element) *Node[K, V] {
+	switch v := element.Value.(type) {
 	case *Node[K, V]:
 		return v
 	default:
@@ -34,9 +34,8 @@ func (c *cacheImpl[K, V])GetNodeFromElement(element *list.Element) *Node[K, V]{
 	}
 }
 
-
 func (c *cacheImpl[K, V]) extractLatest() {
-	del:=c.linkedList.Back()
+	del := c.linkedList.Back()
 
 	delete(c.keyToElement, c.GetNodeFromElement(del).key)
 
@@ -46,18 +45,18 @@ func (c *cacheImpl[K, V]) extractLatest() {
 
 func (c *cacheImpl[K, V]) Put(key K, value V) {
 	if link, ok := c.keyToElement[key]; ok {
-		node:=c.GetNodeFromElement(link)
-		node.value=value
+		node := c.GetNodeFromElement(link)
+		node.value = value
 		c.linkedList.MoveToFront(link)
 		return
-	} 
-	
-	if c.Size()==c.capacity{
+	}
+
+	if c.Size() == c.capacity {
 		c.extractLatest()
-	}else {
-		node:=&Node[K, V]{key, value}
-		c.keyToElement[key]=c.linkedList.PushFront(node)
-		
+	} else {
+		node := &Node[K, V]{key, value}
+		c.keyToElement[key] = c.linkedList.PushFront(node)
+
 	}
 }
 
@@ -75,30 +74,28 @@ func (c *cacheImpl[K, V]) Size() int {
 
 func (c *cacheImpl[K, V]) All() iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
-		cur:= c.linkedList.Front()
+		cur := c.linkedList.Front()
 
-		for range c.Size(){
-			n:=c.GetNodeFromElement(cur)
+		for range c.Size() {
+			n := c.GetNodeFromElement(cur)
 
-			if !yield(n.key, n.value){
+			if !yield(n.key, n.value) {
 				return
 			}
 
-			cur=cur.Next()
+			cur = cur.Next()
 		}
 	}
 }
 
 func NewCache[K comparable, V any](capacity int, defaultValue V) *cacheImpl[K, V] {
-	return &cacheImpl[K,V]{
+	return &cacheImpl[K, V]{
 		list.New(),
 		make(map[K]*list.Element, capacity),
 		capacity,
 		defaultValue,
 	}
 }
-
-
 
 /*
 func foo() {
@@ -119,5 +116,4 @@ func foo() {
 	})
 
 }
-
 */
