@@ -96,24 +96,3 @@ func NewCache[K comparable, V any](capacity int, defaultValue V) *cacheImpl[K, V
 		defaultValue,
 	}
 }
-
-/*
-func foo() {
-	l:= NewCache(1, 0)
-
-	it:=l.All()
-
-	for k, v := range it{
-		if k==v{
-			break
-		}
-	}
-
-	сахар на ->
-
-	it(func(i1, i2 int)bool{
-		return i1==i2
-	})
-
-}
-*/
