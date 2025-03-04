@@ -11,8 +11,8 @@ func Start[T, R any](
 	input <-chan T,
 	transform func(elem T) R,
 ) <-chan R {
-	results := make(chan R)
-	wg := new(sync.WaitGroup)
+	out := make(chan R)
+	wg := &sync.WaitGroup{}
 
 	for i := 0; i < workersCount; i++ {
 		wg.Add(1)
@@ -29,8 +29,7 @@ func Start[T, R any](
 					select {
 					case <-ctx.Done():
 						return
-					case results <- transform(v):
-
+					case out <- transform(v):
 					}
 				}
 			}
@@ -38,9 +37,9 @@ func Start[T, R any](
 	}
 
 	go func() {
-		defer close(results)
+		defer close(out)
 		wg.Wait()
 	}()
 
-	return results
+	return out
 }
