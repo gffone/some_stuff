@@ -1,26 +1,21 @@
 package main
 
-func BinarySearch(vals []int, target int) int {
-
-	left := 0
-	right := len(vals) - 1
-
-	if target > vals[right] || target < vals[left] {
-		return -1
-	}
+func binSearch(nums []int, target int) int {
+	left, right := 0, len(nums)-1
 
 	for left <= right {
-		middle := (right + left) / 2
+		mid := (right + left) / 2
 
-		if vals[middle] == target {
-			return middle
+		if nums[mid] == target {
+			return mid
 		}
 
-		if vals[middle] < target {
-			left = middle + 1
+		if nums[mid] < target {
+			left = mid + 1
 		} else {
-			right = middle - 1
+			right = mid - 1
 		}
 	}
+
 	return -1
 }
